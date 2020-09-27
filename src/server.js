@@ -1,5 +1,6 @@
 import { ApolloServer } from 'apollo-server'
 import { loadTypeSchema } from './utils/schema'
+import { authenticate } from './utils/auth'
 import { merge } from 'lodash'
 import config from './config'
 import { connect } from './db'
@@ -21,9 +22,11 @@ export const start = async () => {
   const server = new ApolloServer({
     typeDefs: [rootSchema, ...schemaTypes],
     resolvers: merge({}, product, coupon, user),
-    context({ req }) {
+    async context({ req }) {
       // use the authenticate function from utils to auth req, its Async!
-      return { user: null }
+      const user = await authenticate(req)
+      console.log(user)
+      return { user }
     }
   })
 

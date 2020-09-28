@@ -23,7 +23,9 @@ export const start = async () => {
     typeDefs: [rootSchema, ...schemaTypes],
     resolvers: merge({}, product, coupon, user),
     async context({ req }) {
+      // use the authenticate function from utils to auth req, its Async!
       const user = await authenticate(req)
+      console.log(user)
       return { user }
     }
   })

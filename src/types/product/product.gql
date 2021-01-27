@@ -17,7 +17,7 @@ interface Product {
   image: String!
   type: ProductType!
   createdBy: User!
-  description: String
+  description: String!
 }
 
 type GamingPc implements Product {
@@ -70,7 +70,6 @@ input UpdateProductInput {
   bikeType: BikeType
   range: String
 }
-
 
 extend type Query {
   products: [Product]!
